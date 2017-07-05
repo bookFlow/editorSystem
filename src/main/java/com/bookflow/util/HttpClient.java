@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class HttpClient {
     //用来发送post/get请求
 
-    //获得药品页面的的String串
+   //超时时间
     public static final int MAX_TIMEOUT=15000;
     
     //原子post方法

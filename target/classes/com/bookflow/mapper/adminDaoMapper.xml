@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookflow.dao.AdminDao">
+	<select id="findAdminorNum" resultType="int">
+		SELECT count(*) FROM admin
+		 WHERE 
+		 passport LIKE  CONCAT(#{0},'') AND 
+		 password LIKE  CONCAT(#{1},'')
+	</select>
+	<select id="findAdminor" resultType="com.bookflow.domain.Admin">
+		SELECT * FROM admin
+		 WHERE 
+		 passport LIKE  CONCAT(#{0},'') AND 
+		 password LIKE  CONCAT(#{1},'')
+	</select>
+</mapper>
