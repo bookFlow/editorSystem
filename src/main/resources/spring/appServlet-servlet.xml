@@ -107,7 +107,7 @@
 	<mvc:resources mapping="/js/**" location="/WEB-INF/static/js/" />
 	<mvc:resources mapping="/css/**" location="/WEB-INF/static/css/" />
 	<mvc:resources mapping="/images/**" location="/WEB-INF/static/images/" />
-	<mvc:resources mapping="/font/**" location="/WEB-INF/static/font/" />
+	<mvc:resources mapping="/fonts/**" location="/WEB-INF/static/fonts/" />
 	<bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath">

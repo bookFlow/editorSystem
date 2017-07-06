@@ -44,10 +44,10 @@ public class AdminMangerController {
             HttpServletRequest req,
             HttpServletResponse res ){
         //校验账号密码，并最终返回jsp
-        if(!adminServiceImp.canLogin(passPort, passWord)){
+        if(adminServiceImp.canLogin(passPort, passWord)){
             
             req.getSession().setAttribute("user", adminServiceImp.getAdmin(passPort, passWord));
-            return "admin/main"; //进入主页
+            return "main"; //进入主页
         
          }else {
              
