@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.annotation.JSONField;
 
 @Service
-public class CheckLoginRes implements Serializable{
+public class CommonRes implements Serializable{
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    @JSONField(name="isSucceed")
+    @JSONField(name="result")
     private boolean isSucceed ; // 成功与否
     @JSONField(name="des")
     private String des ;//描述设置

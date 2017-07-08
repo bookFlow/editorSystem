@@ -1,8 +1,12 @@
 package com.bookflow.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.bookflow.domain.Admin;
+import com.bookflow.pojo.CommonRes;
 
 /**
  * 用于人员管理
@@ -23,7 +27,23 @@ public interface AdminService {
      * */
     public Admin getAdmin(String passPort,String passWord);
     
+    /**
+     * 
+     * 查询管理员
+     * 参数：map
+     * */
+    public List<Admin> findAdminsWithParms(Map<String, Object> map);
+    /**
+     * 
+     * 查询管理员数量一共占多少页
+     * 参数：map
+     * */
+    public int adminsNumWithParms(Map<String, Object> map);
     
-    
-    
+    /**
+     * 
+     * 删除一个管理员
+     * 参数：执行删除操作的passPort,被删的pp
+     * */
+    public CommonRes deleteAdmin(Admin admin,String p2);
 }

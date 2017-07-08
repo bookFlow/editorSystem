@@ -1,5 +1,12 @@
+com\bookflow\dao\AdminDao.class
 com\bookflow\controller\BookMangerController.class
 com\bookflow\controller\AdminMangerController.class
+com\bookflow\domain\Admin.class
+com\bookflow\filter\RedirectionFilter$1.class
+com\bookflow\pojo\CommonRes.class
+com\bookflow\util\ContantUtil.class
+com\bookflow\service\imp\AdminServiceImp.class
 com\bookflow\controller\RecordMangerController.class
 com\bookflow\util\HttpClient.class
 com\bookflow\filter\RedirectionFilter.class
+com\bookflow\service\AdminService.class

@@ -14,4 +14,40 @@
 		 passport LIKE  CONCAT(#{0},'') AND 
 		 password LIKE  CONCAT(#{1},'')
 	</select>
+	<select id="findAdminsWithParms" 
+			parameterType="java.util.Map" 
+			resultType="com.bookflow.domain.Admin">
+		SELECT * FROM admin
+		<where>
+			<if test="true">1=1</if>
+			<if test="name != null"> <!-- 名字不为空 -->
+				AND name LIKE CONCAT('%',CONCAT(#{name},'%'))
+			</if>
+			<if test="passport != null"> <!-- 账号不为空 -->
+				AND passport LIKE CONCAT('%',CONCAT(#{passport},'%'))
+			</if>
+			<if test="start!=null and end!=null and start!='' and end!='' "><!-- 分页查询 -->
+				LIMIT #{start},#{end}
+			</if>
+		</where>
+	</select>
+	<select id="adminNumsWithParms" 
+			parameterType="java.util.Map" 
+			resultType="com.bookflow.domain.Admin">
+		SELECT count(*) FROM admin
+		<where>
+			<if test="true">1=1</if>
+			<if test="name!=null and name!=''"> <!-- 名字不为空 -->
+				AND name LIKE CONCAT('%',CONCAT(#{name},'%'))
+			</if>
+			<if test="passport!=null and passport!=''" > <!-- 账号不为空 -->
+				AND passport LIKE CONCAT('%',CONCAT(#{passport},'%'))
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteAdmin" >
+		DELETE FROM admin WHERE passport=#{0};
+	</delete>
+
 </mapper>

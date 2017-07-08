@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/tx/spring-tx-3.1.xsd  
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd">
-
+	<context:component-scan base-package="com.bookflow" />
 	<context:annotation-config />
 		<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
@@ -35,14 +35,14 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-	<context:component-scan base-package="com.bookflow" />
+	
 
 		<!-- 引入jdbc配置文件   -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:properties/*.properties</value>
+				<value>classpath:properties/jdbc.properties</value>
 				<!--要是有多个配置文，只需在这里继续添加即可 -->
 			</list>
 		</property>
@@ -81,7 +81,7 @@
           <property name="dataSource" ref="dataSource"></property>  
     </bean>  
     
-	<bean id="velocityEngine"
+	<!--  <bean id="velocityEngine"
 		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
 		<property name="velocityProperties">
 			<props>
@@ -91,7 +91,7 @@
 				</prop>
 			</props>
 		</property>
-	</bean>
+	</bean>-->
 
 
 
@@ -104,11 +104,11 @@
 	<bean id="defaultHandlerExceptionResolver"
 		class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver"></bean>
 
-	<mvc:resources mapping="/js/**" location="/WEB-INF/static/js/" />
-	<mvc:resources mapping="/css/**" location="/WEB-INF/static/css/" />
-	<mvc:resources mapping="/images/**" location="/WEB-INF/static/images/" />
-	<mvc:resources mapping="/fonts/**" location="/WEB-INF/static/fonts/" />
-	<bean id="velocityConfig"
+	<mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
+	<mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
+	<mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
+	<mvc:resources mapping="/fonts/**" location="/WEB-INF/fonts/" />
+	<!--  <bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath">
 			<value>/WEB-INF/jsp/</value>
@@ -120,16 +120,22 @@
 				<prop key="contentType">text/html;charset=utf-8</prop>
 			</props>
 		</property>
-	</bean>
+	</bean> -->
 
 	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<!-- 如果不设置这个，response header默认的charset会是iso-8859-1, 具体参见AbstractView -->
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="contentType" value="text/html;charset=utf-8" />
-		<property name="prefix" value="/WEB-INF/jsp/"/>
-    	<property name="suffix" value=".jsp"/>
-		<property name="exposeSpringMacroHelpers">
-			<value>true</value>
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>  
+    	<property name="suffix">
+    		<value>.jsp</value>
+    	</property>
+		<property name="cache">
+			<value>false</value>
 		</property>
 	</bean>
 

@@ -6,14 +6,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>图书漂流管理后台</title>
-    <link rel="stylesheet" href="/css/bootstrap.css" />
-    <link rel="stylesheet" href="/css/sweetalert2.min.css"/>
-    <link rel="stylesheet" href="/css/animate.css" />
-    <link rel="stylesheet" href="/css/style.css?v=4.1.0" />
-    <link rel="stylesheet" href="/css/font-awesome.css?v=4.4.0" />
-    <script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/js/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sweetalert2.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?v=4.1.0" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.css?v=4.4.0" />
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/sweetalert2.min.js"></script>
     <style type="text/css">
         .blur {
             filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
@@ -29,7 +29,7 @@
         <div class="middle-box text-center loginscreen  animated fadeInDown">
             <div>
                 <div>
-                    <h2 class="logo-name">BookFlow</h2>
+                    <h2 class="logo-name">B</h2>
                 </div>
                     <h3>欢迎使用图书漂流后台编辑系统</h3>
                 <div class="form-group">
@@ -40,11 +40,42 @@
                         </div>
                 <button type="submit" class="btn btn-primary block full-width login">登 录</button>
             </div>
+
             <div>
             </div>
         </div>
     </body>
     <script>
+    function createFromSubmit(url,passport,password){
+    	 // 取得要提交的参数  
+       
+        // 取得要提交页面的URL  
+        var action = url;  
+        // 创建Form  
+        var form = $('<form></form>');  
+        // 设置属性  
+        form.attr('action', action);  
+        form.attr('method', 'post');  
+        // form的target属性决定form在哪个页面提交  
+        // _self -> 当前页面 _blank -> 新页面  
+        form.attr('target', '_self');  
+        // 创建Input  
+        var passportEle = $('<input type="text" name="passport" />');  
+        passportEle.attr('value', passport);  
+        var passwordEle = $('<input type="password" name="password" />');  
+        passwordEle.attr('value', password);  
+        // 附加到Form  
+        form.append(passportEle);  
+        form.append(passwordEle); 
+        // 提交表单  
+        form.submit();  
+        // 注意return false取消链接的默认动作  
+        return false;  
+    	
+    	
+    }
+    
+    
     $(".login").bind("click", function() {
         var passport = $(this).parent().find('.email').val();
         var password = $(this).parent().find('.password').val();
@@ -58,15 +89,13 @@
             dataType:"JSON",
             success:function(data){
                 if(data.result == "true" || data.result==true){
-                    window.location.href="/admin/login"
+                	location.href=location.href;
                 }else {
                     swal("错误",data.des,"error");
-
                 }
             },
             error:function(e){
                     swal("错误",e.message,"error");
-
             }
 
         });
