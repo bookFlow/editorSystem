@@ -14,6 +14,6 @@ public interface AdminDao {
     public List<Admin> findAdminsWithParms(Map<String, Object> map);//分页查询管理员
     public int adminNumsWithParms(Map<String, Object> map);//查询符合条件的管理员总数，没有limit限制
     public int deleteAdmin(String passPort);//删除admin
-    
-    
+    public int adminsNumOfPassport(String passPort);//查看某个pp的用户是否存在
+    public int insertAdmin(String passport,String passpwd,String name,String position);//插入用户
 }

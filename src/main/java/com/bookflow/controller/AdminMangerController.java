@@ -158,6 +158,8 @@ public class AdminMangerController {
         req.setAttribute("name", name); //姓名
         req.setAttribute("passPort", passport); //账号
         req.setAttribute("pageNum", pageNum);//当前页数
+        Admin admid= (Admin)req.getSession().getAttribute("user");
+        req.setAttribute("position", admid.getPosition());//身份
         req.setAttribute("start",ContantUtil.ADMIN_PAGE_NUM*(pageNum-1));//索引，编号的话要+1
         req.setAttribute("end",ContantUtil.ADMIN_PAGE_NUM*(pageNum-1)+ContantUtil.ADMIN_PAGE_NUM-1);//索引，编号的话要+1
         return "admin/userListPage";
@@ -180,5 +182,42 @@ public class AdminMangerController {
         
         
     }
+    /**
+     * 查看某个账号是否存在
+     * 
+     * */
+    @RequestMapping(value ="/hasAdmin",method = {
+            RequestMethod.POST, RequestMethod.GET })
+    @ResponseBody
+    public JSONObject hasAdmin(
+            HttpServletRequest req,
+            HttpServletResponse res ){
+         String passPort=req.getParameter("passport");
+         CommonRes commonRes = adminServiceImp.hasAdmin(passPort);
+         return JSONObject.parseObject(JSONObject.toJSONString(commonRes));
+        
+        
+    }
+    /**
+     * 插入用户
+     * 
+     * */
+    @RequestMapping(value ="/addAdmin",method = {
+            RequestMethod.POST, RequestMethod.GET })
+    @ResponseBody
+    public JSONObject addAdmin(
+            HttpServletRequest req,
+            HttpServletResponse res ){
+         String passPort=req.getParameter("passport");
+         String name=req.getParameter("name");
+         String passWord=req.getParameter("password"); 
+         String position=req.getParameter("position");
+         CommonRes commonRes = adminServiceImp.addAdmin(passPort, passWord, name,position);
+         
+         return JSONObject.parseObject(JSONObject.toJSONString(commonRes));
+        
+        
+    }
+    
     
 }

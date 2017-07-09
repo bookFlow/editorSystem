@@ -6,32 +6,32 @@
 	<c:choose>
 		<c:when test="${pageNum == 1}">
 			<!-- 第一页的话，就不能向上翻页了 -->
-			<li class="disabled" ><a  id="lastPage" href="">&laquo;</a></li>
+			<li class="disabled" ><a  id="firstPage" index="1" href="">&laquo;</a></li>
 		</c:when>
 		<c:otherwise>
-			<li><a id="lastPage" href="">&laquo;</a></li>
+			<li><a index="1" id="firstPage" href="">&laquo;</a></li>
 		</c:otherwise>
 	</c:choose>
 	
 	<c:forEach varStatus="i" begin="1" end="${totalPage}">
      			
      			<c:choose>
-     				<c:when test="${i == pageNum}">
+     				<c:when test="${i.index == pageNum}">
      					<!-- 当前页的话，不能再点击 -->
-     					<li class="disabled"><a class="pageLink" index="${i}" href="">${i}</a></li>
+     					<li class="disabled"><a class="nowPage" index="${i.index }" href="">${i.index }</a></li>
      				</c:when>
      				<c:otherwise>
-     					<li ><a class="pageLink" index="${i}" href="">${i}</a></li>
+     					<li ><a  class="usableLink" index="${i.index }" href="">${i.index }</a></li>
      				</c:otherwise>
      			</c:choose>
-     		</c:forEach>
+     </c:forEach>
      	<c:choose>
 	  		<c:when test="${pageNum == totalPage}">
 				<!-- 最后的话，就不能向下翻页了 -->
-				<li  class="disabled"><a  id="nextPage" href="">&raquo;</a></li>
+				<li  class="disabled"><a index="${totalPage}" id="nextPage" href="">&raquo;</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a id="nextPage" href="">&raquo;</a></li>
+				<li><a index="${totalPage}" id="nextPage" href="">&raquo;</a></li>
 			</c:otherwise>
 		</c:choose>
 </ul>

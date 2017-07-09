@@ -22,7 +22,6 @@ import com.bookflow.dao.AdminDao;
 import com.bookflow.domain.Admin;
 import com.bookflow.pojo.CommonRes;
 import com.bookflow.service.AdminService;
-
 import com.bookflow.util.ContantUtil;
 
 @Service
@@ -85,11 +84,14 @@ public class AdminServiceImp implements AdminService{
         try {
             
             int i= adminDao.adminNumsWithParms(map);
-            int mod=i % ContantUtil.ADMIN_PAGE_NUM;
+            System.out.println("人员数:"+i);
+            int rest=i % ContantUtil.ADMIN_PAGE_NUM;
+            rest=rest>0?1:0;
             int base=(int)(i/ContantUtil.ADMIN_PAGE_NUM);
-            return base+mod;//一共页数
+            return base+rest;//一共页数
         } catch (Exception e) {
             // TODO: handle exception
+            LOGGER.error(e.getMessage());
             return 0;
         }
     }
@@ -128,6 +130,30 @@ public class AdminServiceImp implements AdminService{
                 }
             }
         }
+        return commonRes;
+    }
+    @Override
+    public CommonRes hasAdmin(String passport) {
+        // TODO Auto-generated method stub
+        CommonRes commonRes=new CommonRes();
+        if(adminDao.adminsNumOfPassport(passport) <= 0){
+            
+            commonRes.setSucceed(false);
+            
+        }
+        else {
+            
+            commonRes.setSucceed(true);
+            
+        }
+        return commonRes;
+    }
+    @Override
+    public CommonRes addAdmin(String passport, String password, String name,String position) {
+         CommonRes commonRes=new CommonRes();
+         int nums=adminDao.insertAdmin(passport, password, name,position);       
+         if(nums <=0){commonRes.setSucceed(false);}
+         else {commonRes.setSucceed(true);}
         return commonRes;
     }
     

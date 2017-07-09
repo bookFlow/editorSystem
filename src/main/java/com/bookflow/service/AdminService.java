@@ -46,4 +46,19 @@ public interface AdminService {
      * 参数：执行删除操作的passPort,被删的pp
      * */
     public CommonRes deleteAdmin(Admin admin,String p2);
+    
+    /**
+     * 查看某个账号是否已经注册
+     * 参数:passport
+     * 
+     * */
+    public CommonRes hasAdmin(String passport);
+    /**
+     * 查看某个账号是否已经注册
+     * 参数:passport
+     * 
+     * */
+    public CommonRes addAdmin(String passport,String password,String name,String position);
+    
+    
 }

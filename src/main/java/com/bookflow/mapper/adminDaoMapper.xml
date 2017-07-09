@@ -33,7 +33,7 @@
 	</select>
 	<select id="adminNumsWithParms" 
 			parameterType="java.util.Map" 
-			resultType="com.bookflow.domain.Admin">
+			resultType="int">
 		SELECT count(*) FROM admin
 		<where>
 			<if test="true">1=1</if>
@@ -49,5 +49,18 @@
 	<delete id="deleteAdmin" >
 		DELETE FROM admin WHERE passport=#{0};
 	</delete>
+	<select id="adminsNumOfPassport" resultType="int">
+		 SELECT count(*) FROM admin
+		 WHERE 
+		 passport LIKE  CONCAT(#{0},'')  
+	</select>
+	<insert id="insertAdmin" >
+		INSERT INTO admin
+		 (passport,password,name,position)
+		 VALUES
+		 (#{0},#{1},#{2},#{3});
+	</insert>
+	
 
+	
 </mapper>

@@ -75,20 +75,13 @@
                     </li>
                 <c:choose>
                     <c:when test="${user.position eq '0'}">
-                        <li class="line dk"></li>
                         <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                             <span class="ng-scope"><h3>人员管理</h3></span>
                         </li>
                         <li>
                             <a class="J_menuItem"
                                    href="${pageContext.request.contextPath}/admin/showUserList"> <span
-                                    class="nav-label">管理员查看</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem"
-                                href="${pageContext.request.contextPath}/admin/showAddUser"> <span
-                                class="nav-label">添加管理员</span>
+                                    class="nav-label">管理员查看/添加</span>
                             </a>
                         </li>
 
