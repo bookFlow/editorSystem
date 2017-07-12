@@ -69,8 +69,18 @@
 
                     <li>
                         <a class="J_menuItem"
-                            href="${pageContext.request.contextPath}/book/showBook">
+                            href="${pageContext.request.contextPath}/book/showBookList">
                         <span class="nav-label">图书查看</span>
+                        </a>
+                    </li>
+                      <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                        <span class="ng-scope"><h3>交易管理</h3></span>
+                    </li>
+
+                    <li>
+                        <a class="J_menuItem"
+                            href="${pageContext.request.contextPath}/book/showRecord">
+                        <span class="nav-label">交易查看</span>
                         </a>
                     </li>
                 <c:choose>

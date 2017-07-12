@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookflow.dao.BookDao">
+	<select id="findBooksWithParms" resultType="com.bookflow.domain.Book">
+		SELECT 
+			b.id bookId,
+			b.name bookName,
+			pp.Name userName,
+			b.date date ,
+			p.username userId
+		FROM book b, 
+		people p, 
+		peopledetails pp
+		<where>
+			<if test="true">1=1</if>
+			<if test="true">AND b.people_userName = p.userName</if>
+			<if test="true">AND p.userName = pp.people_userName</if>
+			<!--  一下开始条件查询 -->
+			<if test="bname != null  "> <!-- 书名字不为空 -->
+				AND b.name LIKE CONCAT('%',CONCAT(#{bname},'%'))
+			</if>
+			<if test="uname != null"> <!-- 发布者姓名不为空 -->
+				AND pp.name LIKE CONCAT('%',CONCAT(#{uname},'%'))
+			</if>
+			<if test="uid != null"> <!-- 发布者id不为空 -->
+				AND p.username LIKE CONCAT('%',CONCAT(#{uid},'%'))
+			</if>
+			<if test="start!=null and end!=null and start!='' and end!='' "><!-- 分页查询 -->
+				LIMIT #{start},#{end}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findNumOfBooks" resultType="int">
+		SELECT count(*)
+		FROM book b, 
+		people p, 
+		peopledetails pp
+		<where>
+			<if test="true">1=1</if>
+			<if test="true">AND b.people_userName = p.userName</if>
+			<if test="true">AND p.userName = pp.people_userName</if>
+			<!--  一下开始条件查询 -->
+			<if test="bname != null "> <!-- 书名字不为空 -->
+				AND b.name LIKE CONCAT('%',CONCAT(#{bname},'%'))
+			</if>
+			<if test="uname != null"> <!-- 发布者姓名不为空 -->
+				AND pp.name LIKE CONCAT('%',CONCAT(#{uname},'%'))
+			</if>
+			<if test="uid != null"> <!-- 发布者id不为空 -->
+				AND p.username LIKE CONCAT('%',CONCAT(#{uid},'%'))
+			</if>
+			<!-- 没有分页限制 -->
+		</where>
+	</select>
+	<select id="findBookDetailById" resultType ="com.bookflow.domain.BookMix">
+		SELECT 
+		b.id bookId,
+		b.name bookName,
+		pp.Name userName,
+		b.date time ,
+		p.username userId,
+		b.x x,
+		b.y y,
+		bb.pName pName,
+		bb.description des,
+		bb.publishingcompany company ,
+		bb.editor productor ,
+		bb.images images ,
+		bb.price price ,
+		r.status dealStatus
+		FROM 
+		book b,
+		bookdetails bb,
+		record r
+		WHERE 
+		 b.id = #{0} and b.id = r.bookId and b.id = book_id
+	</select>
+	<delete id="deleteBookWithId">
+		DELETE FROM book
+		WHERE id = #{0}
+	
+	</delete>
+	<delete id="deleteBookDetailWithId">
+		DELETE FROM bookdetails
+		WHERE book_id = #{0}
+	</delete>
+	
+</mapper>

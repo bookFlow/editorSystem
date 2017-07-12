@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookflow.dao.RecordDao">
+	<update id="changeRecord" >
+		UPDATE record
+		SET status =#{1}
+		WHERE
+		recordid = #{0}
+	</update>
+	
+	<select id="findRecordNum" resultType="int">
+		SELECT count(*)
+		FROM record
+		WHERE bookid = #{0} 
+	</select>
+	
+	<select id="findRecordBybid" resultType="com.bookflow.domain.Record">
+		SELECT 
+			recorid rid,
+			bid bid , 
+			sid sid,
+			pName pName,
+		FROM record
+		WHERE bookid = #{0} 
+	</select>
+	
+	<delete id="deleteRecordByRid">
+		DELETE FROM record
+		WHERE recordid = #{0}
+	</delete>
+	<select id="findRecordsWithParms" resultType="com.bookflow.domain.Record">
+		SELECT 
+			sid,
+			bid,
+			status,
+			dateE
+		FROM 
+		record 
+		<where>
+			<if test="true">1=1</if>
+			<!--  一下开始条件查询 -->
+			<if test="sid != null  "> <!-- 卖家id不为空 -->
+				AND sid LIKE CONCAT('%',CONCAT(#{sid},'%'))
+			</if>
+			<if test="bid != null"> <!-- 卖家id不为空 -->
+				AND bid LIKE CONCAT('%',CONCAT(#{bid},'%'))
+			</if>
+			<if test="start!=null and end!=null and start!='' and end!='' "><!-- 分页查询 -->
+				LIMIT #{start},#{end}
+			</if>
+		</where>
+	
+	</select>
+	
+	<select id="findRecordsNums" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+		record 
+		<where>
+			<if test="true">1=1</if>
+			<!--  一下开始条件查询 -->
+			<if test="sid != null  "> <!-- 卖家id不为空 -->
+				AND sid LIKE CONCAT('%',CONCAT(#{sid},'%'))
+			</if>
+			<if test="bid != null"> <!-- 卖家id不为空 -->
+				AND bid LIKE CONCAT('%',CONCAT(#{bid},'%'))
+			</if>
+		</where>
+	
+	</select>
+	
+	<select id="findRecordMixBuyerById" resultType="com.bookflow.domain.RecordMix">
+		SELECT 
+			r.bid,
+			p.name bName,
+			r.pName,
+			r.x x,
+			r.y y,
+			r.rid rid,
+			r.dateOk dateOk,
+			r.dateE dateE
+		FROM 
+			record r,
+			peopleDetails p
+		WHERE
+			r.bid = p.people_userName
+	</select>
+		<select id="findRecordMixSellerById" resultType="com.bookflow.domain.RecordMix">
+		SELECT 
+			r.sid,
+			p.name sName,
+			r.pName,
+			r.x x,
+			r.y y,
+			r.rid rid,
+			r.dateOk dateOk,
+			r.dateE dateE
+		FROM 
+			record r,
+			peopleDetails p
+		WHERE
+			r.sid = p.people_userName
+	</select>
+	<select id="findRecordByRid" resultType="com.bookflow.domain.Record">
+		SELECT 
+			recorid rid,
+			bid bid , 
+			sid sid,
+			pName pName,
+		FROM record
+		WHERE recordid = #{0} 
+	</select>
+	
+	
+</mapper>
