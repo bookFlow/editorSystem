@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bookflow.domain.Admin;
 import com.bookflow.domain.Record;
 import com.bookflow.domain.RecordMix;
@@ -75,17 +76,18 @@ public class RecordMangerController {
     @RequestMapping(value ="/cancelRecord",method = {
             RequestMethod.POST, RequestMethod.GET })
     @ResponseBody
-    public String cancelRecord(
+    public JSONObject cancelRecord(
             HttpServletRequest req,
             HttpServletResponse res 
      ){
+    	System.out.println(req.getParameter("rid"));
         try {
-            int rid=(int)req.getAttribute("rid");
-            RecordMix recordMix=recordServiceImp.findRecordDetail(rid);
-            if(recordMix == null)throw new Exception();
+            int rid=Integer.parseInt(req.getParameter("rid"));
+            CommonRes commonRes=recordServiceImp.cancelRecord(rid);
+            if(commonRes == null)throw new NullPointerException();
+        
             else {
-                req.setAttribute("red", recordMix);
-                return "record/recordDetail";
+               return JSONObject.parseObject(JSONObject.toJSONString(commonRes));
             }
             
         } catch (Exception e) {
@@ -95,7 +97,7 @@ public class RecordMangerController {
             CommonRes commonRes=new CommonRes();
             commonRes.setDes("操作失败");
             commonRes.setSucceed(false);
-            return "error/error";
+            return JSONObject.parseObject(JSONObject.toJSONString(commonRes));
         }
         
         
@@ -109,9 +111,9 @@ public class RecordMangerController {
             HttpServletRequest req,
             HttpServletResponse res 
      ){
-      
+        
         try {
-            int rid=(int)req.getAttribute("rid");
+            int rid=Integer.parseInt(req.getParameter("rid"));
             RecordMix recordMix=recordServiceImp.findRecordDetail(rid);
             if(recordMix == null)throw new Exception();
             else {

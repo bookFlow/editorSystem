@@ -16,10 +16,15 @@
 		FROM record
 		WHERE bookid = #{0} 
 	</select>
-	
+	<update id="changeRecordByRid">
+		UPDATE RECORD
+		SET status = #{1}
+		WHERE
+		recordid = #{0}
+	</update>
 	<select id="findRecordBybid" resultType="com.bookflow.domain.Record">
 		SELECT 
-			recorid rid,
+			recordid rid,
 			bid bid , 
 			sid sid,
 			pName pName,
@@ -36,9 +41,10 @@
 			sid,
 			bid,
 			status,
-			dateE
+			dateE,
+			recordid rid
 		FROM 
-		record 
+			record 
 		<where>
 			<if test="true">1=1</if>
 			<!--  一下开始条件查询 -->
@@ -80,7 +86,7 @@
 			r.pName,
 			r.x x,
 			r.y y,
-			r.rid rid,
+			r.recordid rid,
 			r.dateOk dateOk,
 			r.dateE dateE
 		FROM 
@@ -88,6 +94,10 @@
 			peopleDetails p
 		WHERE
 			r.bid = p.people_userName
+			and 
+			r.bid LIKE CONCAT('%',CONCAT(#{1},'%'))
+			and 
+			r.recordid = #{0}
 	</select>
 		<select id="findRecordMixSellerById" resultType="com.bookflow.domain.RecordMix">
 		SELECT 
@@ -96,7 +106,7 @@
 			r.pName,
 			r.x x,
 			r.y y,
-			r.rid rid,
+			r.recordid rid,
 			r.dateOk dateOk,
 			r.dateE dateE
 		FROM 
@@ -104,13 +114,18 @@
 			peopleDetails p
 		WHERE
 			r.sid = p.people_userName
+			AND 
+			r.sid LIKE CONCAT('%',CONCAT(#{1},'%'))
+			AND 
+			r.recordid = #{0}
 	</select>
 	<select id="findRecordByRid" resultType="com.bookflow.domain.Record">
 		SELECT 
-			recorid rid,
+			recordid rid,
 			bid bid , 
 			sid sid,
-			pName pName,
+			dateE dateE,
+			status status
 		FROM record
 		WHERE recordid = #{0} 
 	</select>

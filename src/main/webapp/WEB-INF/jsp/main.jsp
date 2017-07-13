@@ -79,7 +79,7 @@
 
                     <li>
                         <a class="J_menuItem"
-                            href="${pageContext.request.contextPath}/book/showRecord">
+                            href="${pageContext.request.contextPath}/record/showRecordList">
                         <span class="nav-label">交易查看</span>
                         </a>
                     </li>

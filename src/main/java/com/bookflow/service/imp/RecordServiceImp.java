@@ -118,11 +118,27 @@ public class RecordServiceImp implements RecordService {
     @Override
     public CommonRes cancelRecord(int rid) {
         // TODO Auto-generated method stub
+       
+    	 CommonRes commonRes=new CommonRes();
+        try {
+           
+            int  num = recordDao.changeRecordByRid(rid, 4);
+        
+            if(num < 1 ) {
+            	commonRes.setSucceed(false);
+            	commonRes.setDes("取消失败");
+            	return commonRes;
+            	
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            LOGGER.error(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
         
         
-        
-        
-        return null;
+        return commonRes;
     }
     
 }

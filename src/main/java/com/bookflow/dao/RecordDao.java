@@ -19,6 +19,6 @@ public interface RecordDao {
     public Record findRecordBybid(int bid);//根据书id 查找bid
     public Record findRecordByRid(int rid);//根据rid查找条目
     public Integer deleteRecordByRid(int rid) ;// 根据bid删除 条目
-    
+    public Integer changeRecordByRid(int rid,int status);//根据rid改变status
   
 }
