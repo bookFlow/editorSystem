@@ -67,6 +67,7 @@ public class BookMangerController {
         System.out.println("total:"+allPageNums);
         System.out.println("bname:"+bname);
         System.out.println("uid:"+uid);
+        System.out.println("uname:"+uname);
         System.out.println("pageNum:"+pageNum);
         System.out.println("start:"+ContantUtil.ADMIN_PAGE_NUM*(pageNum-1));
         req.setAttribute("bname", bname); //姓名
@@ -86,7 +87,8 @@ public class BookMangerController {
             HttpServletRequest req,
             HttpServletResponse res )
     {
-        
+        System.out.println("展示详情");
+        //System.out.println(req.getParameter("bid"));
         int bid = 0;
         
         if(StringUtil.isBlank(req.getParameter("bid")) || !StringUtil.isNumeric(req.getParameter("bid"))){

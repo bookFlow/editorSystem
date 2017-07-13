@@ -61,7 +61,7 @@
 		b.name bookName,
 		pp.Name userName,
 		b.date time ,
-		p.username userId,
+		b.people_userName userId,
 		b.x x,
 		b.y y,
 		bb.pName pName,
@@ -70,13 +70,13 @@
 		bb.editor productor ,
 		bb.images images ,
 		bb.price price ,
-		r.status dealStatus
+		b.status dealStatus
 		FROM 
-		book b,
-		bookdetails bb,
-		record r
+			book b,
+			bookdetails bb,
+			peopleDetails pp 
 		WHERE 
-		 b.id = #{0} and b.id = r.bookId and b.id = book_id
+		 b.id = #{0}  and b.id = book_id and b.people_userName = pp.people_userName 
 	</select>
 	<delete id="deleteBookWithId">
 		DELETE FROM book
@@ -87,5 +87,18 @@
 		DELETE FROM bookdetails
 		WHERE book_id = #{0}
 	</delete>
-	
+	<select id="selectNumsDetail" resultType="int">
+		SELECT count(*)
+		FROM 
+		    bookdetails
+		WHERE
+			book_id = #{0}    
+	</select>
+	<select id="deleteBookDetail" >
+		DELETE 
+			FROM 
+				bookdetails
+			WHERE 
+				book_id = #{0}
+	</select>
 </mapper>

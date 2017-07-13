@@ -80,7 +80,7 @@
         var passport = $(this).parent().find('.email').val();
         var password = $(this).parent().find('.password').val();
         $.ajax({
-            url:"/admin/checkLogin",
+            url:"${pageContext.request.contextPath}/admin/checkLogin",
             type:"POST",
             data:{
                     "passport":passport,

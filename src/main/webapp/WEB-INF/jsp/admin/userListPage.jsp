@@ -169,7 +169,7 @@
 
 			){
 				//现在可以查询
-				location.href="/admin/showUserList?"+
+				location.href="${pageContext.request.contextPath}/admin/showUserList?"+
 						"name="+$("#nameInput").val()+"&"+
 						"passport="+$("#ppInput").val()+"&"+
 						"pageNum=1";

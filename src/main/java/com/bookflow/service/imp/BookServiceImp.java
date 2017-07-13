@@ -81,20 +81,33 @@ public class BookServiceImp implements BookService{
     @Override
     @Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class,timeout=1,isolation=Isolation.DEFAULT) 
     public CommonRes deleteBook(int bid) throws Exception {
+    	CommonRes commonRes=new CommonRes();
         // TODO Auto-generated method stub
         try {
-            CommonRes commonRes=new CommonRes();
+           
             int i=-1;
             int num= recordDao.findRecordNum(bid);
             if(num> 0 ){
                 Record record = recordDao.findRecordBybid(bid); 
                 i=recordDao.deleteRecordByRid(record.getRid());
             }
+            num = bookDao.selectNumsDetail(bid);
+            if(num > 0) {
+            	bookDao.deleteBookDetail(bid);
+            	
+            }
+            
             int num1= bookDao.deleteBookWithId(bid);
-            if(num1 < 1 || i < 1){
+            if(num1 < 1 ){
                 commonRes.setSucceed(false);
                 commonRes.setDes("删除失败");
                 return commonRes;
+            }else {
+            	 
+            	commonRes.setSucceed(true);
+                commonRes.setDes("删除成功");
+                return commonRes;
+            	
             }
          } catch (Exception e) {
              // TODO: handle exception
@@ -103,7 +116,7 @@ public class BookServiceImp implements BookService{
              throw new Exception();
              
          }
-        return null;
+        
     }
 
 }
